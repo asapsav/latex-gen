@@ -14,6 +14,7 @@ BASE_MODELS = {
     # Training 70B requires experimental flag fsdp_peft_cpu_offload_for_save.
     "chat70": "meta-llama/Llama-2-70b-chat-hf",
     "base70": "meta-llama/Llama-2-70b-hf",
+    #"mistral7_instruct": "mistralai/Mistral-7B-Instruct-v0.1" does not work
 }
 
 image = (
@@ -34,7 +35,7 @@ image = (
     .env(dict(HUGGINGFACE_HUB_CACHE="/pretrained", HF_HUB_ENABLE_HF_TRANSFER="1"))
 )
 
-stub = Stub("llama-finetuning", image=image, secrets=[Secret.from_name("huggingface")])
+stub = Stub("llama-finetuning", image=image, secrets=[Secret.from_name("huggingface-secret-sava")])
 
 # Download pre-trained models into this volume.
 stub.pretrained_volume = Volume.persisted("example-pretrained-vol")
